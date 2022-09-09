@@ -37,10 +37,11 @@ on:
         description: 'Enter the application version:'
         required: true
         type: string
+    secrets:
       namespace:
         required: true
         description: 'Enter the application namespace:'
-        type: string
+#        type: string
 
 jobs:
   trigger-jenkins-job:
@@ -53,4 +54,4 @@ jobs:
           jenkins-token: ${{ secrets.JENKINS_TOKEN }}
           user: ${{ secrets.JENKINS_USER }}
           job-path: "job/kubernetes-deploy-on-nutanix"
-          job-params: '{"SERVICE_NAME" : "${{ inputs.repository_name }}", "CLUSTER_ENVIRONMENT": "${{ inputs.cluster_environment }}" , "VERSION": "${{ inputs.version }}", "NAMESPACE": "${{ inputs.namespace }}" }'
+          job-params: '{"SERVICE_NAME" : "${{ inputs.repository_name }}", "CLUSTER_ENVIRONMENT": "${{ inputs.cluster_environment }}" , "VERSION": "${{ inputs.version }}", "NAMESPACE": "${{ secrets.namespace }}" }'
