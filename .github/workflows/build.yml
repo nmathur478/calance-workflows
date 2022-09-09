@@ -59,7 +59,7 @@ jobs:
 
   deploy-to-kubernetes:
     needs: build-docker
-    uses: Calance-US/public-repository-template/.github/workflows/deploy.yml@main
+    uses: Calance-US/calance-workflows/.github/workflows/deploy.yml@main
     with:
       repository_name: ${{ github.event.repository.name }}
       version: ${{ needs.build-docker.outputs.version }}
