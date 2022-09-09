@@ -64,4 +64,5 @@ jobs:
       repository_name: ${{ github.event.repository.name }}
       version: ${{ needs.build-docker.outputs.version }}
       cluster_environment: ${{ needs.build-docker.outputs.cluster_environment }}
+    secrets:
       namespace: ${{ secrets.NAMESPACE }}

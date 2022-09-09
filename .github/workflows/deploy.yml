@@ -37,20 +37,30 @@ on:
         description: 'Enter the application version:'
         required: true
         type: string
+    secrets:
       namespace:
         required: true
         description: 'Enter the application namespace:'
-        type: string
 
 jobs:
   trigger-jenkins-job:
     runs-on: ubuntu-latest
-    steps:                                
+    steps:
+      - name: Save JENKINS values
+        shell: bash
+        env:
+          JENKINS_URL: ${{ secrets.JENKINS_URL }}
+          JENKINS_USER: ${{ secrets.JENKINS_USER }}
+          JENKINS_TOKEN: ${{ secrets.JENKINS_TOKEN }}
+        run: |
+          echo "$JENKINS_URL"
+          echo "$JENKINS_USER"
+
       - name: Trigger Jenkins Job
         uses: prempratap09/build-jenkins-job@master
         with:
-          jenkins-url: ${{ secrets.JENKINS_URL }}
-          jenkins-token: ${{ secrets.JENKINS_TOKEN }}
-          user: ${{ secrets.JENKINS_USER }}
+          jenkins-url: $JENKINS_URL
+          jenkins-token: $JENKINS_TOKEN
+          user: $JENKINS_USER
           job-path: "job/kubernetes-deploy-on-nutanix"
           job-params: '{"SERVICE_NAME" : "${{ inputs.repository_name }}", "CLUSTER_ENVIRONMENT": "${{ inputs.cluster_environment }}" , "VERSION": "${{ inputs.version }}", "NAMESPACE": "${{ secrets.namespace }}" }'
