@@ -41,26 +41,34 @@ on:
       namespace:
         required: true
         description: 'Enter the application namespace:'
+      JENKINS_URL:
+        required: true
+        description: 'Jenkins URL'
+      JENKINS_USER:
+        required: true
+        description: 'Jenkins USER'
+      JENKINS_TOKEN:
+        required: true
+        description: 'Jenkins USER'
 
 jobs:
   trigger-jenkins-job:
     runs-on: ubuntu-latest
     steps:
-      - name: Save JENKINS values
-        shell: bash
-        env:
-          JENKINS_URL: ${{ secrets.JENKINS_URL }}
-          JENKINS_USER: ${{ secrets.JENKINS_USER }}
-          JENKINS_TOKEN: ${{ secrets.JENKINS_TOKEN }}
-        run: |
-          echo "$JENKINS_URL"
-          echo "$JENKINS_USER"
-
+            #      - name: Save JENKINS values   # no need for this step because environments are getting set at step level either set them at job or global level
+            #        shell: bash
+            #        env:
+            #          JENKINS_URL: ${{ secrets.JENKINS_URL }}
+            #          JENKINS_USER: ${{ secrets.JENKINS_USER }}
+            #          JENKINS_TOKEN: ${{ secrets.JENKINS_TOKEN }}
+            #        run: |
+            #          echo "${{ env.JENKINS_URL }}"
+            #          echo "${{ env.JENKINS_USER }}"
       - name: Trigger Jenkins Job
         uses: prempratap09/build-jenkins-job@master
         with:
-          jenkins-url: $JENKINS_URL
-          jenkins-token: $JENKINS_TOKEN
-          user: $JENKINS_USER
+          jenkins-url: "${{ secrets.JENKINS_URL }}"
+          jenkins-token: "${{ secrets.JENKINS_TOKEN }}"
+          user: "${{ secrets.JENKINS_USER }}"
           job-path: "job/kubernetes-deploy-on-nutanix"
           job-params: '{"SERVICE_NAME" : "${{ inputs.repository_name }}", "CLUSTER_ENVIRONMENT": "${{ inputs.cluster_environment }}" , "VERSION": "${{ inputs.version }}", "NAMESPACE": "${{ secrets.namespace }}" }'
