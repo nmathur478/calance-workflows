@@ -69,3 +69,6 @@ jobs:
       cluster_environment: ${{ needs.build-docker.outputs.cluster_environment }}
     secrets:
       namespace: ${{ secrets.NAMESPACE }}
+      JENKINS_URL: ${{ secrets.JENKINS_URL1 }}
+      JENKINS_USER: ${{ secrets.JENKINS_USER1 }}
+      JENKINS_TOKEN: ${{ secrets.JENKINS_TOKEN1 }}
