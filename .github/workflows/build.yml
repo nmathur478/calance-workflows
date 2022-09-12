@@ -19,8 +19,6 @@ on:
       - v[0-9]+.[0-9]+.[0-9]+-rc[0-9]
       - v[0-9]+.[0-9]+.[0-9]+
 
-env:
-  namespace: ${{ secrets.NAMESPACE }}
 
 jobs:
   build-docker:
@@ -55,7 +53,6 @@ jobs:
         id: version
         run: |
           echo "::set-output name=build_version::${{ fromJSON(steps.meta.outputs.json).labels['org.opencontainers.image.version'] }}"
-          echo "${{ secrets.NAMESPACE }}"
       - name: Identifying cluster in which application should be deployed
         id: cluster_environment
         run: |
