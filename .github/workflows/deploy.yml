@@ -41,6 +41,15 @@ on:
       namespace:
         required: true
         description: 'Enter the application namespace:'
+      JENKINS_URL:
+        required: true
+        description: 'Jenkins URL'
+      JENKINS_USER:
+        required: true
+        description: 'Jenkins USER'
+      JENKINS_TOKEN:
+        required: true
+        description: 'Jenkins USER'
 
 jobs:
   trigger-jenkins-job:
@@ -53,14 +62,13 @@ jobs:
           JENKINS_USER: ${{ secrets.JENKINS_USER }}
           JENKINS_TOKEN: ${{ secrets.JENKINS_TOKEN }}
         run: |
-          echo "$JENKINS_URL"
-          echo "$JENKINS_USER"
-
+          echo "${{ env.JENKINS_URL }}"
+          echo "${{ env.JENKINS_USER }}"
       - name: Trigger Jenkins Job
         uses: prempratap09/build-jenkins-job@master
         with:
-          jenkins-url: $JENKINS_URL
-          jenkins-token: $JENKINS_TOKEN
-          user: $JENKINS_USER
+          jenkins-url: ${{ env.JENKINS_URL }}
+          jenkins-token: ${{ env.JENKINS_USER }}
+          user: ${{ env.JENKINS_USER }}
           job-path: "job/kubernetes-deploy-on-nutanix"
           job-params: '{"SERVICE_NAME" : "${{ inputs.repository_name }}", "CLUSTER_ENVIRONMENT": "${{ inputs.cluster_environment }}" , "VERSION": "${{ inputs.version }}", "NAMESPACE": "${{ secrets.namespace }}" }'
