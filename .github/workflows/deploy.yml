@@ -49,13 +49,12 @@ jobs:
       - name: Save JENKINS values
         shell: bash
         env:
-          JENKINS_URL: ${{ secrets.JENKINS_URL }}
-          JENKINS_USER: ${{ secrets.JENKINS_USER }}
-          JENKINS_TOKEN: ${{ secrets.JENKINS_TOKEN }}
+          JENKINS_URL: ${{ secrets.JENKINS_URL1 }}
+          JENKINS_USER: ${{ secrets.JENKINS_USER1 }}
+          JENKINS_TOKEN: ${{ secrets.JENKINS_TOKEN1 }}
         run: |
           echo "$JENKINS_URL"
           echo "$JENKINS_USER"
-
       - name: Trigger Jenkins Job
         uses: prempratap09/build-jenkins-job@master
         with:
