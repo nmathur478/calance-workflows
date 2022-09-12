@@ -55,7 +55,6 @@ jobs:
         run: |
           echo "$JENKINS_URL"
           echo "$JENKINS_USER"
-
       - name: Trigger Jenkins Job
         uses: prempratap09/build-jenkins-job@master
         with:
