@@ -1,3 +1,3 @@
-FROM python:3.8-alpine
+FROM openjdk:3.8-alpine
 
-CMD ["python", "-m", "http.server", "8000"]
+CMD ["openjdk", "-m", "http.server", "8000"]
