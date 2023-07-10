@@ -73,9 +73,9 @@ jobs:
     - name: Check for the Image Registry
       id: image_registry
       run: |
-        if [ ${{inputs.image_name}} == "ghcr.io" ]; then
+        if [ ${{inputs.image_registry}} == "ghcr.io" ]; then
           echo "IMAGE_REGISTRY_TOKEN=GHCR_TOKEN" >> "$GITHUB_OUTPUT"
-        elif [ ${{inputs.image_name}} == "dockerhub.io" ]; then
+        elif [ ${{inputs.image_registry}} == "dockerhub.io" ]; then
           echo "IMAGE_REGISTRY_TOKEN=DOCKERHUB_TOKEN" >> "$GITHUB_OUTPUT"
 
     - name: Log in to github Container registry where image is pushed and pulled from
