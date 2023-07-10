@@ -84,4 +84,4 @@ jobs:
       with:
         registry: ${{inputs.image_registry}}
         username: ${{ github.repository_owner }}
-        password: ${{secrets}}.${{steps.image_registry.outputs.IMAGE_REGISTRY_TOKEN}}
+        password: ${{secrets.GITHUB_TOKEN}}
